@@ -1,0 +1,47 @@
+<div id="planrepas">
+  <h1>Plan de Repas</h1>
+
+  <div class="divider"></div>
+
+  <table id="ht" align="center" border="1" width="1000" class="table-striped table-hover">
+    <thead class="header">
+      <th class="contentCell">NUMÉRO PLAN</th>
+      <th class="contentCell">CATÉGORIE</th>
+      <th class="contentCell">FRÉQUENCE</th>
+      <th class="contentCell">NUMERO PERSONNES</th>
+      <th class="contentCell">CALORIES</th>
+      <th class="contentCell">PRIX</th>
+      <th class="actionCell">ACTION</th>
+    </thead>
+    
+    <tbody>
+ 
+      <tr *ngFor="let planrepas of planrepas; let i = index">
+        <td class="contentCell">{{ planrepas.numeroplan }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changecategorie($event, i)">{{ planrepas.categorie}}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changefrequence($event, i)">{{ planrepas.frequence }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changenbpersonnes($event, i)">{{ planrepas.nbpersonnes}}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changenbcalories($event, i)">{{ planrepas.nbcalories }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeprix($event, i)">{{ planrepas.prix }}</td>
+        <td class="actionCell">
+          <button type="button" class="submitbtn" (click)="updatePlanrepas(i)"><i class="fa fa-edit"></i></button>
+          <button type="button" class="deletebtn" (click)="deletePlanrepas(planrepas.numeroplan)"><i class="fa fa-trash-o"></i></button>
+        </td>
+      </tr>
+
+      <tr class="blank_row">
+        <td class="contentCell" contenteditable="true" placeholder="New numeroplan" #newnumeroplan></td>
+        <td class="contentCell" contenteditable="true" placeholder="New categorie" #newcategorie></td>
+        <td class="contentCell" contenteditable="true" placeholder="New frequence" #newfrequence></td>
+        <td class="contentCell" contenteditable="true" placeholder="New nbpersonnes" #newnbpersonnes></td>
+        <td class="contentCell" contenteditable="true" placeholder="New nbcalories" #newnbcalories></td>
+        <td class="contentCell" contenteditable="true" placeholder="New prix" #newprix></td>
+        <td class="contentCell"></td>
+    </tr>
+
+    </tbody>
+  </table>
+
+  <button type="button" class="btn" (click)="insertPlanrepas()">+</button>
+
+</div>
