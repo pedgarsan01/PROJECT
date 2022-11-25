@@ -6,9 +6,9 @@ import "reflect-metadata";
 @injectable()
 export class DatabaseService {
   public connectionConfig: pg.ConnectionConfig = {
-    user: "admin",
+    user: "admin2",
     database: "TP4",
-    password: "admin",
+    password: "admin2",
     port: 5432,          // Attention ! Peut aussi être 5433 pour certains utilisateurs
     host: "127.0.0.1",
     keepAlive: true
@@ -18,12 +18,12 @@ export class DatabaseService {
 
   
  // ======= DEBUG =======
- public async getAllFromTable(tableName: string): Promise<pg.QueryResult> {
-  const client = await this.pool.connect();
-  const res = await client.query(`SELECT * FROM TP4.${tableName};`);
-  client.release();
-  return res;
-}
+  public async getAllPlanRepas(): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+    const res = await client.query(`SELECT * FROM planrepas;`);
+    client.release();
+    return res;
+  }
 /*
 // ======= HOTEL =======
 public async createHotel(hotel: Hotel): Promise<pg.QueryResult> {
@@ -40,7 +40,7 @@ public async createHotel(hotel: Hotel): Promise<pg.QueryResult> {
   return res;
 }
 */
-
+/*
 // get hotels that correspond to certain caracteristics
 public async filterPlanrepas(
   numeroplan: string,
