@@ -3,7 +3,7 @@ SET search_path = TP4;
 DROP SCHEMA IF EXISTS TP4 CASCADE;
 CREATE SCHEMA TP4;
 
-CREATE TABLE IF NOT EXISTS "TP4".Planrepas
+CREATE TABLE IF NOT EXISTS TP4.planrepas
 (
     numeroplan integer NOT NULL,
     categorie VARCHAR(15) NOT NULL,
@@ -11,5 +11,5 @@ CREATE TABLE IF NOT EXISTS "TP4".Planrepas
     nbpersonnes integer,
     nbcalories integer,
     prix integer,
-    CONSTRAINT "Planrepas_pkey" PRIMARY KEY (numeroplan)
+    PRIMARY KEY (numeroplan)
 );

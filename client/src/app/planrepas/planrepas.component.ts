@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from "@angular/core";
+//import { OnInit } from '@angular/core';
 import { Planrepas } from "../../../../common/tables/Planrepas";
 import { CommunicationService } from "./../services/communication.service";
 
@@ -19,18 +20,25 @@ export class PlanrepasComponent {
 
 
 
-  public planrepas: Planrepas[] = [];
+  public planrepass: Planrepas[] = [];
   public duplicateError: boolean = false;
+
+  //tableColumns: string[] = ['categorie'];
+
+
+
 
   public constructor(private communicationService: CommunicationService) {}
 
   public ngOnInit(): void {
     this.getPlanrepas();
+
   }
 
   public getPlanrepas(): void {
-    this.communicationService.getPlanrepas().subscribe((planrepas: Planrepas[]) => {
-      this.planrepas = planrepas;
+    this.communicationService.getPlanrepas().subscribe((planrepass: Planrepas[]) => {
+      this.planrepass = planrepass ? planrepass : [];
+      console.log(planrepass);
     });
   }
 
@@ -55,12 +63,12 @@ export class PlanrepasComponent {
 
   private refresh() {
     this.getPlanrepas();
-    this.newNumeroplan.nativeElement.innerText = "";
-    this.newCategorie.nativeElement.innerText = "";
-    this.newFrequence.nativeElement.innerText = "";
-    this.newNbpersonnes.nativeElement.innerText = "";
-    this.newNbcalories.nativeElement.innerText = "";
-    this.newPrix.nativeElement.innerText = "";
+    // this.newNumeroplan.nativeElement.innerText = "";
+    // this.newCategorie.nativeElement.innerText = "";
+    // this.newFrequence.nativeElement.innerText = "";
+    // this.newNbpersonnes.nativeElement.innerText = "";
+    // this.newNbcalories.nativeElement.innerText = "";
+    // this.newPrix.nativeElement.innerText = "";
   }
 
   public deletePlanrepas(numeroplan: string) {
@@ -71,16 +79,31 @@ export class PlanrepasComponent {
 
   public changeCategorie(event: any, i:number){
     const editField = event.target.textContent;
-    this.planrepas[i].categorie = editField;
+    this.planrepass[i].categorie = editField;
   }
 
   public changeFrequence(event: any, i:number){
     const editField = event.target.textContent;
-    this.planrepas[i].frequence = editField;
+    this.planrepass[i].frequence = editField;
+  }
+
+  public changeNbpersonnes(event: any, i:number){
+    const editField = event.target.textContent;
+    this.planrepass[i].nbpersonnes = editField;
+  }
+
+  public changeNbcalories(event: any, i:number){
+    const editField = event.target.textContent;
+    this.planrepass[i].nbcalories = editField;
+  }
+
+  public changePrix(event: any, i:number){
+    const editField = event.target.textContent;
+    this.planrepass[i].nbcalories = editField;
   }
 
   public updatePlanrepas(i: number) {
-    this.communicationService.updatePlanrepas(this.planrepas[i]).subscribe((res: any) => {
+    this.communicationService.updatePlanrepas(this.planrepass[i]).subscribe((res: any) => {
       this.refresh();
     });
   }

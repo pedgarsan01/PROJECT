@@ -24,6 +24,21 @@ export class DatabaseService {
     client.release();
     return res;
   }
+
+
+
+  public async deletePlanrepas(numeroplan: string): Promise<pg.QueryResult> {
+    if (numeroplan.length === 0) throw new Error("Invalid delete query, negth of numeroplan=0");
+
+    const client = await this.pool.connect();
+    const query = `DELETE FROM TP4.Planrepas WHERE numeroplan = '${numeroplan}';`;
+
+    const res = await client.query(query);
+    client.release();
+    return res;
+  }
+
+
 /*
 // ======= HOTEL =======
 public async createHotel(hotel: Hotel): Promise<pg.QueryResult> {
@@ -267,4 +282,40 @@ public async createBooking(
 
 */
 
+public async getPlanrepasNamesByNos(): Promise<pg.QueryResult> {
+  const client = await this.pool.connect();
+  const res = await client.query("SELECT * FROM TP4.Plnarepas;");
+  client.release();
+  return res;
+}
+
+
+// get planrepas that correspond to certain caracteristics
+public async filterPlanrepas(
+  numeroplan: string,
+  categorie: string,
+  frequence: string,
+  nbpersonnes: string,
+  nbcalories: string,
+  prix: string
+): Promise<pg.QueryResult> {
+  const client = await this.pool.connect();
+
+  const searchTerms: string[] = [];
+  if (numeroplan.length > 0) searchTerms.push(`numeroplan = '${numeroplan}'`);
+  if (categorie.length > 0) searchTerms.push(`categorie = '${categorie}'`);
+  if (frequence.length > 0) searchTerms.push(`frequence = '${frequence}'`);
+  if (nbpersonnes.length > 0) searchTerms.push(`nbpersonnes = '${nbpersonnes}'`);
+  if (nbcalories.length > 0) searchTerms.push(`nbcalories = '${nbcalories}'`);
+  if (prix.length > 0) searchTerms.push(`prix = '${prix}'`);
+
+  let queryText = "SELECT * FROM TP4.planrepas";
+  //  if (searchTerms.length > 0)
+  //    queryText += " WHERE " + searchTerms.join(" AND ");
+  //  queryText += ";";
+
+  const res = await client.query(queryText);
+  client.release();
+  return res;
+}
 }

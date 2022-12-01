@@ -1,7 +1,35 @@
+
+
 <div id="planrepas">
   <h1>Plan de Repas</h1>
 
   <div class="divider"></div>
+
+  <!-- <table mat-table matSort [dataSource]="planrepass" class="mat-elevation-z8">
+    <ng-container matColumnDef="categorie">
+        <th mat-header-cell *matHeaderCellDef> Categorie </th>
+        <td mat-cell *matCellDef="let planrepas"> {{planrepas.categorie}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+  </table>  -->
+
+
+
+  <!--  
+  <table mat-table matSort [dataSource]="planrepass" class="mat-elevation-z8">
+    <mat-grid-tile *ngFor="let planrepas of planrepass">
+      <mat-card style="width: 400px; height: 200px">
+        <mat-card-content>
+          <ul>
+            <li>Numero plan : {{ planrepas.numeroplan }}</li>
+
+          </ul>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </table> -->
+
 
   <table id="ht" align="center" border="1" width="1000" class="table-striped table-hover">
     <thead class="header">
@@ -13,16 +41,17 @@
       <th class="contentCell">PRIX</th>
       <th class="actionCell">ACTION</th>
     </thead>
-    
+  
+
     <tbody>
  
-      <tr *ngFor="let planrepas of planrepas; let i = index">
+      <tr *ngFor="let planrepas of planrepass; let i = index">
         <td class="contentCell">{{ planrepas.numeroplan }}</td>
-        <td class="contentCell" contenteditable="true" (blur)="changecategorie($event, i)">{{ planrepas.categorie}}</td>
-        <td class="contentCell" contenteditable="true" (blur)="changefrequence($event, i)">{{ planrepas.frequence }}</td>
-        <td class="contentCell" contenteditable="true" (blur)="changenbpersonnes($event, i)">{{ planrepas.nbpersonnes}}</td>
-        <td class="contentCell" contenteditable="true" (blur)="changenbcalories($event, i)">{{ planrepas.nbcalories }}</td>
-        <td class="contentCell" contenteditable="true" (blur)="changeprix($event, i)">{{ planrepas.prix }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeCategorie($event, i)">{{ planrepas.categorie}}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeFrequence($event, i)">{{ planrepas.frequence }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeNbpersonnes($event, i)">{{ planrepas.nbpersonnes}}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeNbcalories($event, i)">{{ planrepas.nbcalories }}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changePrix($event, i)">{{ planrepas.prix }}</td>
         <td class="actionCell">
           <button type="button" class="submitbtn" (click)="updatePlanrepas(i)"><i class="fa fa-edit"></i></button>
           <button type="button" class="deletebtn" (click)="deletePlanrepas(planrepas.numeroplan)"><i class="fa fa-trash-o"></i></button>
@@ -40,8 +69,9 @@
     </tr>
 
     </tbody>
-  </table>
+  </table>   
 
-  <button type="button" class="btn" (click)="insertPlanrepas()">+</button>
+  <!-- <button type="button" class="btn" (click)="insertPlanrepas()">+</button>
+  <button type="button" class="btn" (click)="ngOnInit()">+</button> -->
 
 </div>
