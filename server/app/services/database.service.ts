@@ -38,6 +38,12 @@ export class DatabaseService {
     return res;
   }
 
+  public async getPlanrepasByNos(): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+    const res = await client.query("SELECT numeroplan, categorie FROM TP4.Planrepas;");
+    client.release();
+    return res;
+  }
 
 /*
 // ======= HOTEL =======

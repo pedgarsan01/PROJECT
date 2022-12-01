@@ -31,10 +31,10 @@ export class DatabaseController {
       
     });
 
-    // router.get("/planrepass/numeroplan",
+    // router.get("/planrepas/numeroplan",
     //   (req: Request, res: Response, _: NextFunction) => {
     //     this.databaseService
-    //       .getPlanrepasNamesByNos()
+    //       .getPlanrepasByNos()
     //       .then((result: pg.QueryResult) => {
     //         const planrepasNbsNames = result.rows.map((planrepas: PlanrepasPK) => ({
     //           numeroplan: planrepas.numeroplan
@@ -45,8 +45,7 @@ export class DatabaseController {
     //       .catch((e: Error) => {
     //         console.error(e.stack);
     //       });
-      // }
-    // );
+    //   });
 
 
     // router.get("/planrepass", (req: Request, res: Response, _: NextFunction) => {
