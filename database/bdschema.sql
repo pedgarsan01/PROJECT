@@ -1,9 +1,7 @@
-SET search_path = TP4;
 
-DROP SCHEMA IF EXISTS TP4 CASCADE;
-CREATE SCHEMA TP4;
 
-CREATE TABLE IF NOT EXISTS TP4.planrepas
+
+CREATE TABLE IF NOT EXISTS planrepas
 (
     numeroplan integer NOT NULL,
     categorie VARCHAR(15) NOT NULL,

@@ -3,8 +3,9 @@ import { inject, injectable } from "inversify";
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
 import * as pg from "pg";
+import { Planrepas } from "@app/tables/Planrepas";
 
-//import { Planrepas } from "../../../common/tables/Planrepas";
+
 //import { PlanrepasPK } from "../../../common/tables/PlanrepasPK";
 
 @injectable()
@@ -30,6 +31,74 @@ export class DatabaseController {
         });
       
     });
+
+    router.post(
+      "/planrepas/delete/:numeroplan",
+      (req: Request, res: Response, _: NextFunction) => {
+        const numeroplan: string = req.params.numeroplan;
+        this.databaseService
+          .deletePlanrepas(numeroplan)
+          .then((result: pg.QueryResult) => {
+            res.json(result.rowCount);
+          })
+          .catch((e: Error) => {
+            console.error(e.stack);
+          });
+          
+      } );
+
+      router.put(
+        "/planrepas/update",
+        (req: Request, res: Response, _: NextFunction) => {
+
+          const planrepas: Planrepas = {
+                      numeroplan: req.body.numeroplan,
+                      categorie: req.body.categorie     ? req.body.categorie : "",
+                      frequence: req.body.frequence     ? req.body.frequence : "",
+                      nbpersonnes: req.body.nbpersonnes ? req.body.nbpersonnes : "",
+                      nbcalories: req.body.nbcalories   ? req.body.nbcalories : "",
+                      prix: req.body.prix               ? req.body.prix : "",
+          
+                    };
+
+        
+          this.databaseService
+            .updatePlanrepas(planrepas)
+            .then((result: pg.QueryResult) => {
+              res.json(result.rowCount);
+            })
+            .catch((e: Error) => {
+              console.error(e.stack);
+            });
+            
+        } );
+
+
+  //     router.put(
+  //       "/planrepas/update",
+  //       (req: Request, res: Response, _: NextFunction) => {
+  //         const planrepas: Planrepas = {
+  //           numeroplan: req.body.numeroplan,
+  //           categorie: req.body.name ? req.body.categorie : "",
+  //           frequence: req.body.city ? req.body.frequence : "",
+  //           nbpersonnes: req.body.name ? req.body.nbpersonnes : "",
+  //           nbcalories: req.body.city ? req.body.nbcalories : "",
+  //           prix: req.body.name ? req.body.prix : "",
+
+  //         };
+  // console.log(planrepas)
+          // this.databaseService
+          //   .updatePlanrepas(planrepas)
+          //   .then((result: pg.QueryResult) => {
+          //     res.json(result.rowCount);
+          //   })
+          //   .catch((e: Error) => {
+          //     console.error(e.stack);
+          //   });
+        // } );
+
+
+
 
     // router.get("/planrepas/numeroplan",
     //   (req: Request, res: Response, _: NextFunction) => {

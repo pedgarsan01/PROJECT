@@ -1,9 +1,7 @@
 import { Component, ElementRef, ViewChild } from "@angular/core";
-//import { OnInit } from '@angular/core';
+
 import { Planrepas } from "../../../../common/tables/Planrepas";
 import { CommunicationService } from "./../services/communication.service";
-// import { MatDialogConfig } from '@angular/material/dialog';
-// import { DialogComponent } from './dialog.component';
 
 
 @Component({
@@ -25,7 +23,7 @@ export class PlanrepasComponent {
   public planrepass: Planrepas[] = [];
   public duplicateError: boolean = false;
 
-  //tableColumns: string[] = ['categorie'];
+
 
 
 
@@ -110,17 +108,6 @@ export class PlanrepasComponent {
     });
   }
 
-  
-  // openDialog(planrepas: Planrepas) {
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.disableClose = false;
-  //   dialogConfig.autoFocus = true;
-  //   dialogConfig.minWidth = '650px';
-  //   const parcelles = this.getPlanrepas();
-  //   dialogConfig.data = {
-  //     planrepas,
-  //   };
-  //   this.dialog.open(DialogComponent, dialogConfig);
-  // }
+
 }
 

@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import * as pg from "pg";
 import "reflect-metadata";
-//import { Planrepas } from "../../../common/tables/Planrepas";
+import { Planrepas } from "../../../server/app/tables/Planrepas";
 
 @injectable()
 export class DatabaseService {
@@ -28,39 +28,53 @@ export class DatabaseService {
 
 
   public async deletePlanrepas(numeroplan: string): Promise<pg.QueryResult> {
-    if (numeroplan.length === 0) throw new Error("Invalid delete query, negth of numeroplan=0");
+    if (numeroplan.length === 0) throw new Error("Invalid delete query, length of numeroplan=0");
 
     const client = await this.pool.connect();
-    const query = `DELETE FROM TP4.Planrepas WHERE numeroplan = '${numeroplan}';`;
+    const query = `DELETE FROM planrepas WHERE numeroplan = '${numeroplan}';`;
 
     const res = await client.query(query);
     client.release();
     return res;
   }
 
-  public async getPlanrepasByNos(): Promise<pg.QueryResult> {
+  // public async getPlanrepasByNos(): Promise<pg.QueryResult> {
+  //   const client = await this.pool.connect();
+  //   const res = await client.query("SELECT numeroplan, categorie FROM TP4.Planrepas;");
+  //   client.release();
+  //   return res;
+  // }
+
+
+
+  public async updatePlanrepas(planrepas: Planrepas): Promise<pg.QueryResult> {
     const client = await this.pool.connect();
-    const res = await client.query("SELECT numeroplan, categorie FROM TP4.Planrepas;");
+
+
+    let toUpdateValues = [];
+
+    if (planrepas.categorie.length > 0) toUpdateValues.push(`categorie = '${planrepas.categorie}'`);
+    if (planrepas.frequence.length > 0) toUpdateValues.push(`frequence = '${planrepas.frequence}'`);
+    if (planrepas.nbpersonnes.length > 0) toUpdateValues.push(`nbpersonnes = '${planrepas.nbpersonnes}'`);
+    if (planrepas.nbcalories.length > 0) toUpdateValues.push(`nbcalories = '${planrepas.nbcalories}'`);
+    if (planrepas.prix.length > 0) toUpdateValues.push(`prix = '${planrepas.prix}'`);
+
+    if (
+      !planrepas.numeroplan ||
+      planrepas.numeroplan.length === 0 ||
+      toUpdateValues.length === 0
+    )
+      throw new Error("Invalid planrepas update query");
+    
+    const query = `UPDATE planrepas SET ${toUpdateValues.join(
+      ", "
+    )} WHERE numeroplan = '${planrepas.numeroplan}';`;
+    const res = await client.query(query);
     client.release();
     return res;
   }
 
-/*
-// ======= HOTEL =======
-public async createHotel(hotel: Hotel): Promise<pg.QueryResult> {
-  const client = await this.pool.connect();
 
-  if (!hotel.hotelnb || !hotel.name || !hotel.city)
-    throw new Error("Invalid create hotel values");
-
-  const values: string[] = [hotel.hotelnb, hotel.name, hotel.city];
-  const queryText: string = `INSERT INTO HOTELDB.Hotel VALUES($1, $2, $3);`;
-
-  const res = await client.query(queryText, values);
-  client.release();
-  return res;
-}
-*/
 /*
 // get hotels that correspond to certain caracteristics
 public async filterPlanrepas(
@@ -288,40 +302,40 @@ public async createBooking(
 
 */
 
-public async getPlanrepasNamesByNos(): Promise<pg.QueryResult> {
-  const client = await this.pool.connect();
-  const res = await client.query("SELECT * FROM TP4.Plnarepas;");
-  client.release();
-  return res;
-}
+// public async getPlanrepasNamesByNos(): Promise<pg.QueryResult> {
+//   const client = await this.pool.connect();
+//   const res = await client.query("SELECT * FROM TP4.Planrepas;");
+//   client.release();
+//   return res;
+// }
 
 
-// get planrepas that correspond to certain caracteristics
-public async filterPlanrepas(
-  numeroplan: string,
-  categorie: string,
-  frequence: string,
-  nbpersonnes: string,
-  nbcalories: string,
-  prix: string
-): Promise<pg.QueryResult> {
-  const client = await this.pool.connect();
+// // get planrepas that correspond to certain caracteristics
+// public async filterPlanrepas(
+//   numeroplan: string,
+//   categorie: string,
+//   frequence: string,
+//   nbpersonnes: string,
+//   nbcalories: string,
+//   prix: string
+// ): Promise<pg.QueryResult> {
+//   const client = await this.pool.connect();
 
-  const searchTerms: string[] = [];
-  if (numeroplan.length > 0) searchTerms.push(`numeroplan = '${numeroplan}'`);
-  if (categorie.length > 0) searchTerms.push(`categorie = '${categorie}'`);
-  if (frequence.length > 0) searchTerms.push(`frequence = '${frequence}'`);
-  if (nbpersonnes.length > 0) searchTerms.push(`nbpersonnes = '${nbpersonnes}'`);
-  if (nbcalories.length > 0) searchTerms.push(`nbcalories = '${nbcalories}'`);
-  if (prix.length > 0) searchTerms.push(`prix = '${prix}'`);
+//   const searchTerms: string[] = [];
+//   if (numeroplan.length > 0) searchTerms.push(`numeroplan = '${numeroplan}'`);
+//   if (categorie.length > 0) searchTerms.push(`categorie = '${categorie}'`);
+//   if (frequence.length > 0) searchTerms.push(`frequence = '${frequence}'`);
+//   if (nbpersonnes.length > 0) searchTerms.push(`nbpersonnes = '${nbpersonnes}'`);
+//   if (nbcalories.length > 0) searchTerms.push(`nbcalories = '${nbcalories}'`);
+//   if (prix.length > 0) searchTerms.push(`prix = '${prix}'`);
 
-  let queryText = "SELECT * FROM TP4.planrepas";
-  //  if (searchTerms.length > 0)
-  //    queryText += " WHERE " + searchTerms.join(" AND ");
-  //  queryText += ";";
+//   let queryText = "SELECT * FROM TP4.planrepas";
+//   //  if (searchTerms.length > 0)
+//   //    queryText += " WHERE " + searchTerms.join(" AND ");
+//   //  queryText += ";";
 
-  const res = await client.query(queryText);
-  client.release();
-  return res;
-}
+//   const res = await client.query(queryText);
+//   client.release();
+//   return res;
+// }
 }
