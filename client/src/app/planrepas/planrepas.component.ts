@@ -17,6 +17,7 @@ export class PlanrepasComponent {
   @ViewChild("newNbpersonnes") newNbpersonnes: ElementRef;
   @ViewChild("newNbcalories") newNbcalories: ElementRef;
   @ViewChild("newPrix") newPrix: ElementRef;
+  @ViewChild("newNumerofournisseur") newNumerofournisseur: ElementRef;
 
 
 
@@ -53,6 +54,7 @@ export class PlanrepasComponent {
       nbpersonnes: this.newNbpersonnes.nativeElement.innerText,
       nbcalories: this.newNbcalories.nativeElement.innerText,
       prix: this.newPrix.nativeElement.innerText,
+      numerofournisseur: this.newNumerofournisseur.nativeElement.innerText,
     };
     console.log(planrepas)
 
@@ -67,12 +69,7 @@ export class PlanrepasComponent {
 
   private refresh() {
     this.getPlanrepas();
-    // this.newNumeroplan.nativeElement.innerText = "";
-    // this.newCategorie.nativeElement.innerText = "";
-    // this.newFrequence.nativeElement.innerText = "";
-    // this.newNbpersonnes.nativeElement.innerText = "";
-    // this.newNbcalories.nativeElement.innerText = "";
-    // this.newPrix.nativeElement.innerText = "";
+
   }
 
   public deletePlanrepas(numeroplan: string) {
@@ -104,6 +101,10 @@ export class PlanrepasComponent {
   public changePrix(event: any, i:number){
     const editField = event.target.textContent;
     this.planrepass[i].nbcalories = editField;
+  }
+  public changeNumerofournisseur(event: any, i:number){
+    const editField = event.target.textContent;
+    this.planrepass[i].numerofournisseur = editField;
   }
 
   public updatePlanrepas(i: number) {

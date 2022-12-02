@@ -58,6 +58,7 @@ export class DatabaseController {
                       nbpersonnes: req.body.nbpersonnes ? req.body.nbpersonnes : "",
                       nbcalories: req.body.nbcalories   ? req.body.nbcalories : "",
                       prix: req.body.prix               ? req.body.prix : "",
+                      numerofournisseur: req.body.numerofournisseur               ? req.body.numerofournisseur : "",
           
                     };
 
@@ -84,6 +85,7 @@ export class DatabaseController {
           nbpersonnes: req.body.nbpersonnes,
           nbcalories: req.body.nbcalories,
           prix: req.body.prix,
+          numerofournisseur: req.body.numerofournisseur,
         };
 
         this.databaseService

@@ -58,6 +58,7 @@ export class DatabaseService {
     if (planrepas.nbpersonnes.length > 0) toUpdateValues.push(`nbpersonnes = '${planrepas.nbpersonnes}'`);
     if (planrepas.nbcalories.length > 0) toUpdateValues.push(`nbcalories = '${planrepas.nbcalories}'`);
     if (planrepas.prix.length > 0) toUpdateValues.push(`prix = '${planrepas.prix}'`);
+    if (planrepas.numerofournisseur.length > 0) toUpdateValues.push(`numerofournisseur = '${planrepas.numerofournisseur}'`);
 
     if (
       !planrepas.numeroplan ||
@@ -78,11 +79,12 @@ export class DatabaseService {
   public async createPlanrepas(planrepas: Planrepas): Promise<pg.QueryResult> {
     const client = await this.pool.connect();
 
-    if (!planrepas.numeroplan || !planrepas.categorie || !planrepas.frequence || !planrepas.nbpersonnes || !planrepas.nbcalories || !planrepas.prix  )
+    if (!planrepas.numeroplan || !planrepas.categorie || !planrepas.frequence || !planrepas.nbpersonnes || !planrepas.nbcalories || !planrepas.prix || !planrepas.numerofournisseur  )
       throw new Error("Invalid create planrepas values");
+    
 
     const values: string[] = [planrepas.numeroplan, planrepas.categorie, planrepas.frequence, planrepas.nbpersonnes, planrepas.nbcalories, planrepas.prix];
-    const queryText: string = `INSERT INTO planrepas VALUES($1, $2, $3, $4, $5, $6);`;
+    const queryText: string = `INSERT INTO planrepas VALUES($1, $2, $3, $4, $5, $6, $7);`;
 
     const res = await client.query(queryText, values);
     client.release();
