@@ -75,6 +75,22 @@ export class DatabaseService {
   }
 
 
+  public async createPlanrepas(planrepas: Planrepas): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+
+    if (!planrepas.numeroplan || !planrepas.categorie || !planrepas.frequence || !planrepas.nbpersonnes || !planrepas.nbcalories || !planrepas.prix  )
+      throw new Error("Invalid create planrepas values");
+
+    const values: string[] = [planrepas.numeroplan, planrepas.categorie, planrepas.frequence, planrepas.nbpersonnes, planrepas.nbcalories, planrepas.prix];
+    const queryText: string = `INSERT INTO planrepas VALUES($1, $2, $3, $4, $5, $6);`;
+
+    const res = await client.query(queryText, values);
+    client.release();
+    return res;
+  }
+
+
+
 /*
 // get hotels that correspond to certain caracteristics
 public async filterPlanrepas(
@@ -113,229 +129,5 @@ public async getHotelNamesByNos(): Promise<pg.QueryResult> {
   const res = await client.query("SELECT hotelNb, name FROM HOTELDB.Hotel;");
   client.release();
   return res;
-}
-
-// modify name or city of a hotel
-public async updateHotel(hotel: Hotel): Promise<pg.QueryResult> {
-  const client = await this.pool.connect();
-
-  let toUpdateValues = [];
-
-  if (hotel.name.length > 0) toUpdateValues.push(`name = '${hotel.name}'`);
-  if (hotel.city.length > 0) toUpdateValues.push(`city = '${hotel.city}'`);
-
-  if (
-    !hotel.hotelnb ||
-    hotel.hotelnb.length === 0 ||
-    toUpdateValues.length === 0
-  )
-    throw new Error("Invalid hotel update query");
-
-  const query = `UPDATE HOTELDB.Hotel SET ${toUpdateValues.join(
-    ", "
-  )} WHERE hotelNb = '${hotel.hotelnb}';`;
-  const res = await client.query(query);
-  client.release();
-  return res;
-}
-
-public async deleteHotel(hotelNb: string): Promise<pg.QueryResult> {
-  if (hotelNb.length === 0) throw new Error("Invalid delete query");
-
-  const client = await this.pool.connect();
-  const query = `DELETE FROM HOTELDB.Hotel WHERE hotelNb = '${hotelNb}';`;
-
-  const res = await client.query(query);
-  client.release();
-  return res;
-}
-
-// ======= ROOMS =======
-public async createRoom(room: Room): Promise<pg.QueryResult> {
-  const client = await this.pool.connect();
-
-  if (!room.roomnb || !room.hotelnb || !room.type || !room.price)
-    throw new Error("Invalid create room values");
-
-  const values: string[] = [
-    room.roomnb,
-    room.hotelnb,
-    room.type,
-    room.price.toString(),
-  ];
-  const queryText: string = `INSERT INTO HOTELDB.ROOM VALUES($1, $2, $3, $4);`;
-
-  const res = await client.query(queryText, values);
-  client.release();
-  return res;
-}
-
-public async filterRooms(
-  hotelNb: string,
-  roomNb: string = "",
-  roomType: string = "",
-  price: number = -1
-): Promise<pg.QueryResult> {
-  const client = await this.pool.connect();
-
-  if (!hotelNb || hotelNb.length === 0)
-    throw new Error("Invalid filterRooms request");
-
-  let searchTerms = [];
-  searchTerms.push(`hotelNb = '${hotelNb}'`);
-
-  if (roomNb.length > 0) searchTerms.push(`hotelNb = '${hotelNb}'`);
-  if (roomType.length > 0) searchTerms.push(`type = '${roomType}'`);
-  if (price >= 0) searchTerms.push(`price = ${price}`);
-
-  let queryText = `SELECT * FROM HOTELDB.Room WHERE ${searchTerms.join(
-    " AND "
-  )};`;
-  const res = await client.query(queryText);
-  client.release();
-  return res;
-}
-
-public async updateRoom(room: Room): Promise<pg.QueryResult> {
-  const client = await this.pool.connect();
-
-  let toUpdateValues = [];
-  if (room.price >= 0) toUpdateValues.push(`price = ${room.price}`);
-  if (room.type.length > 0) toUpdateValues.push(`type = '${room.type}'`);
-
-  if (
-    !room.hotelnb ||
-    room.hotelnb.length === 0 ||
-    !room.roomnb ||
-    room.roomnb.length === 0 ||
-    toUpdateValues.length === 0
-  )
-    throw new Error("Invalid room update query");
-
-  const query = `UPDATE HOTELDB.Room SET ${toUpdateValues.join(
-    ", "
-  )} WHERE hotelNb = '${room.hotelnb}' AND roomNb = '${room.roomnb}';`;
-  const res = await client.query(query);
-  client.release();
-  return res;
-}
-
-public async deleteRoom(
-  hotelNb: string,
-  roomNb: string
-): Promise<pg.QueryResult> {
-  if (hotelNb.length === 0) throw new Error("Invalid room delete query");
-  const client = await this.pool.connect();
-
-  const query = `DELETE FROM HOTELDB.Room WHERE hotelNb = '${hotelNb}' AND roomNb = '${roomNb}';`;
-  const res = await client.query(query);
-  client.release();
-  return res;
-}
-
-// ======= GUEST =======
-public async createGuest(guest: Guest): Promise<pg.QueryResult> {
-  const client = await this.pool.connect();
-  if (
-    !guest.guestnb ||
-    !guest.nas ||
-    !guest.name ||
-    !guest.gender ||
-    !guest.city
-  )
-    throw new Error("Invalid create room values");
-
-  if (!(guest.gender in Gender))
-    throw new Error("Unknown guest gender passed");
-
-  const values: string[] = [
-    guest.guestnb,
-    guest.nas,
-    guest.name,
-    guest.gender,
-    guest.city,
-  ];
-  const queryText: string = `INSERT INTO HOTELDB.Guest VALUES($1, $2, $3, $4, $5);`;
-  const res = await client.query(queryText, values);
-  client.release();
-  return res;
-}
-
-public async getGuests(
-  hotelNb: string,
-  roomNb: string
-): Promise<pg.QueryResult> {
-  if (!hotelNb || hotelNb.length === 0)
-    throw new Error("Invalid guest hotel no");
-
-  const client = await this.pool.connect();
-  const queryExtension = roomNb ? ` AND b.roomNb = '${roomNb}'` : "";
-  const query: string = `SELECT * FROM HOTELDB.Guest g JOIN HOTELDB.Booking b ON b.guestNb = g.guestNb WHERE b.hotelNb = '${hotelNb}'${queryExtension};`;
-
-  const res = await client.query(query);
-  client.release();
-  return res;
-}
-
-// ======= BOOKING =======
-public async createBooking(
-  hotelNb: string,
-  guestNo: string,
-  dateFrom: Date,
-  dateTo: Date,
-  roomNb: string
-): Promise<pg.QueryResult> {
-  const client = await this.pool.connect();
-  const values: string[] = [
-    hotelNb,
-    guestNo,
-    dateFrom.toString(),
-    dateTo.toString(),
-    roomNb,
-  ];
-  const queryText: string = `INSERT INTO HOTELDB.ROOM VALUES($1,$2,$3,$4,$5);`;
-
-  const res = await client.query(queryText, values);
-  client.release();
-  return res;
-}
-
-*/
-
-// public async getPlanrepasNamesByNos(): Promise<pg.QueryResult> {
-//   const client = await this.pool.connect();
-//   const res = await client.query("SELECT * FROM TP4.Planrepas;");
-//   client.release();
-//   return res;
-// }
-
-
-// // get planrepas that correspond to certain caracteristics
-// public async filterPlanrepas(
-//   numeroplan: string,
-//   categorie: string,
-//   frequence: string,
-//   nbpersonnes: string,
-//   nbcalories: string,
-//   prix: string
-// ): Promise<pg.QueryResult> {
-//   const client = await this.pool.connect();
-
-//   const searchTerms: string[] = [];
-//   if (numeroplan.length > 0) searchTerms.push(`numeroplan = '${numeroplan}'`);
-//   if (categorie.length > 0) searchTerms.push(`categorie = '${categorie}'`);
-//   if (frequence.length > 0) searchTerms.push(`frequence = '${frequence}'`);
-//   if (nbpersonnes.length > 0) searchTerms.push(`nbpersonnes = '${nbpersonnes}'`);
-//   if (nbcalories.length > 0) searchTerms.push(`nbcalories = '${nbcalories}'`);
-//   if (prix.length > 0) searchTerms.push(`prix = '${prix}'`);
-
-//   let queryText = "SELECT * FROM TP4.planrepas";
-//   //  if (searchTerms.length > 0)
-//   //    queryText += " WHERE " + searchTerms.join(" AND ");
-//   //  queryText += ";";
-
-//   const res = await client.query(queryText);
-//   client.release();
-//   return res;
-// }
+}*/
 }

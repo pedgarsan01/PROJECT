@@ -42,8 +42,11 @@ export class PlanrepasComponent {
     });
   }
 
+
+
+
   public insertPlanrepas(): void {
-    const planrepas: any = {
+    const planrepas: Planrepas = {
       numeroplan: this.newNumeroplan.nativeElement.innerText,
       categorie: this.newCategorie.nativeElement.innerText,
       frequence: this.newFrequence.nativeElement.innerText,
@@ -51,6 +54,7 @@ export class PlanrepasComponent {
       nbcalories: this.newNbcalories.nativeElement.innerText,
       prix: this.newPrix.nativeElement.innerText,
     };
+    console.log(planrepas)
 
     this.communicationService.insertPlanrepas(planrepas).subscribe((res: number) => {
       if (res > 0) {

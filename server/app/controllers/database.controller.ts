@@ -74,6 +74,30 @@ export class DatabaseController {
         } );
 
 
+
+        router.post("/planrepas/insert",
+      (req: Request, res: Response, _: NextFunction) => {
+        const planrepas: Planrepas = {
+          numeroplan: req.body.numeroplan,
+          categorie: req.body.categorie,
+          frequence: req.body.frequence,
+          nbpersonnes: req.body.nbpersonnes,
+          nbcalories: req.body.nbcalories,
+          prix: req.body.prix,
+        };
+
+        this.databaseService
+          .createPlanrepas(planrepas)
+          .then((result: pg.QueryResult) => {
+            res.json(result.rowCount);
+          })
+          .catch((e: Error) => {
+            console.error(e.stack);
+            res.json(-1);
+          });
+      }
+    );
+
   //     router.put(
   //       "/planrepas/update",
   //       (req: Request, res: Response, _: NextFunction) => {
