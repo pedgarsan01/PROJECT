@@ -54,37 +54,7 @@ export class CommunicationService {
       .get<PlanrepasPK[]>(this.BASE_URL + "/planrepas/numeroplan")
       .pipe(catchError(this.handleError<PlanrepasPK[]>("getPlanrepasPKs")));
   }
-/*
-  public getRooms(hotelNb: string): Observable<Room[]> {
-    return this.http
-      .get<Room[]>(this.BASE_URL + `/rooms?hotelNb=${hotelNb}`)
-      .pipe(catchError(this.handleError<Room[]>("getRooms")));
-  }
 
-  public insertRoom(room: Room): Observable<number> {
-    return this.http
-      .post<number>(this.BASE_URL + "/rooms/insert", room)
-      .pipe(catchError(this.handleError<number>("inserHotel")));
-  }
-
-  public updateRoom(room: Room): Observable<number> {
-    return this.http
-      .put<number>(this.BASE_URL + "/rooms/update", room)
-      .pipe(catchError(this.handleError<number>("updateRoom")));
-  }
-
-  public deleteRoom(hotelNb: string, roomNb: string): Observable<number> {
-    return this.http
-      .post<number>(this.BASE_URL + `/rooms/delete/${hotelNb}/${roomNb}`, {})
-      .pipe(catchError(this.handleError<number>("deleteRoom")));
-  }
-
-  public getGuests(hotelNb: string, roomNb: string): Observable<Guest[]> {
-    return this.http
-      .get<Guest[]>(this.BASE_URL + `/guests/${hotelNb}/${roomNb}`)
-      .pipe(catchError(this.handleError<Guest[]>("getGuests")));
-  }
-*/
   private handleError<T>(
     request: string,
     result?: T

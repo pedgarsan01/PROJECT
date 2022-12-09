@@ -1,14 +1,8 @@
 
-
 <div id="planrepas">
   <h1>Plan de Repas</h1>
 
   <div class="divider"></div>
-
-
-
-
-
 
   <table id="ht" align="center" border="1" width="1000" class="table-striped table-hover">
     <thead class="header">
@@ -23,7 +17,6 @@
       <th class="actionCell">ACTION</th>
     </thead>
   
-
     <tbody>
  
       <tr *ngFor="let planrepas of planrepass; let i = index">
@@ -47,15 +40,22 @@
         <td class="contentCell" contenteditable="true" placeholder="New nbpersonnes" #newNbpersonnes></td>
         <td class="contentCell" contenteditable="true" placeholder="New nbcalories" #newNbcalories></td>
         <td class="contentCell" contenteditable="true" placeholder="New prix" #newPrix></td>
-        <td class="contentCell" contenteditable="true" placeholder="New prix" #newNumerofournisseur></td>
+        <td class="contentCell" contenteditable="true" placeholder="New Fournisseur" #newNumerofournisseur></td>
         <td class="contentCell"></td>
     </tr>
 
     </tbody>
   </table>   
 
+
+
+
   <button type="button" class="btn" (click)="insertPlanrepas()">+ Add Plan</button>
-  <!-- <button mat-raised-button (click)="openDialog()">POP UP</button> -->
 
 
-</div>
+
+
+
+
+
+

@@ -1,10 +1,8 @@
 .title {
-  color: rgba(154, 117, 240, 1);
+  color: rgb(255, 255, 255);
   font-family: 'Roboto', sans-serif;
   margin-left: 10px;
   font-weight: bold;
-
-
 }
 
 .home {
@@ -23,7 +21,7 @@
   font-size: 60px;
   text-align: center;
   /* background: rgba(154, 117, 240, 0.4); */
-  background: rgba(255, 138, 96);
+  background: rgba(104, 255, 96, 0.633);
   padding-top: 2%;
   padding-bottom: 2%;
 }
@@ -33,6 +31,7 @@
   font-size: 20px;
   font-family: 'Roboto', sans-serif;
   padding: 10px;
+  background-color: #FF8B60; 
 }
 
 .main-nav {
@@ -40,3 +39,4 @@
   font-size: 18px;
   padding: 1%;
 }
+

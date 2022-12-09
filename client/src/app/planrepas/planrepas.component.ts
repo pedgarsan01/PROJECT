@@ -2,13 +2,17 @@ import { Component, ElementRef, ViewChild } from "@angular/core";
 
 import { Planrepas } from "../../../../common/tables/Planrepas";
 import { CommunicationService } from "./../services/communication.service";
+import { FormControl } from '@angular/forms';
+
 
 
 @Component({
-  selector: "app-planrepas",
+  selector: "app-planrepas",  
   templateUrl: "./planrepas.component.html",
   styleUrls: ["./planrepas.component.css"],
 })
+
+
 
 export class PlanrepasComponent {
   @ViewChild("newNumeroplan") newNumeroplan: ElementRef;
@@ -24,25 +28,25 @@ export class PlanrepasComponent {
   public planrepass: Planrepas[] = [];
   public duplicateError: boolean = false;
 
-
-
-
-
-
   public constructor(private communicationService: CommunicationService) {}
+
+  formControl = new FormControl('');
 
   public ngOnInit(): void {
     this.getPlanrepas();
 
   }
 
+  public openForm(): void {
+    // Muestra el formulario en la página web
+  }
+
   public getPlanrepas(): void {
     this.communicationService.getPlanrepas().subscribe((planrepass: Planrepas[]) => {
       this.planrepass = planrepass ? planrepass : [];
-      console.log(planrepass);
+
     });
   }
-
 
 
 
@@ -112,7 +116,6 @@ export class PlanrepasComponent {
       this.refresh();
     });
   }
-
 
 }
 

@@ -1,4 +1,104 @@
+
 #planrepas {
+    background-color: white ;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    padding: 3%;
+}
+
+#ht {
+    background-color: white;
+    text-align: left;
+}
+
+.divider {
+    border-bottom: 1px solid #ee900c;
+    margin: auto;
+    width: 70%;
+    margin-bottom: 25px;
+}
+
+.header {
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #7bd245;
+}
+
+.contentCell {
+    padding: 10px;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color:#f4dec4;
+    color:#ff9500;
+}
+
+.navbar-brand title{
+    color: white;
+}
+
+.btn {
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #ee900c;
+    margin: 20px;
+    color: white;
+    font-size: 25px;
+    font-weight: 800;
+    font-family: 'Varela Round', sans-serif;
+}
+
+[placeholder]:empty::before {
+    content: attr(placeholder);
+    color: #f4a200; 
+}
+
+[placeholder]:empty:focus::before {
+    content: "";
+    color: #f4a200;
+}
+
+.blank_row {
+    color: #e6b878;
+}
+
+.blank_row:not(.nohover):hover { 
+    color: #e6b878; 
+}
+
+.actionCell {
+    padding: 10px;
+    color: #ffffff; 
+}
+
+.deletebtn {
+    border-radius: 4px;
+    color: white; 
+    background-color: #FF8B60; 
+    border-style: none;
+}
+
+.submitbtn {
+    border-radius: 4px;
+    border-style: none;
+    margin-right: 10px;
+    color: white;
+    background-color: #6E9EEB;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* #planrepas {
     background-color: #e2e2e2;
     font-family: 'Roboto', sans-serif;
     text-align: center;
@@ -76,4 +176,4 @@
     margin-right: 10px;
     color: white;
     background-color: #6E9EEB;
-}
+} */

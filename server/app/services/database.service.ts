@@ -83,7 +83,7 @@ export class DatabaseService {
       throw new Error("Invalid create planrepas values");
     
 
-    const values: string[] = [planrepas.numeroplan, planrepas.categorie, planrepas.frequence, planrepas.nbpersonnes, planrepas.nbcalories, planrepas.prix];
+    const values: string[] = [planrepas.numeroplan, planrepas.categorie, planrepas.frequence, planrepas.nbpersonnes, planrepas.nbcalories, planrepas.prix, planrepas.numerofournisseur];
     const queryText: string = `INSERT INTO planrepas VALUES($1, $2, $3, $4, $5, $6, $7);`;
 
     const res = await client.query(queryText, values);
@@ -93,43 +93,5 @@ export class DatabaseService {
 
 
 
-/*
-// get hotels that correspond to certain caracteristics
-public async filterPlanrepas(
-  numeroplan: string,
-  categorie: string,
-  frequence: string,
-  nbpersonnes: string,
-  nbcalories: string,
-  prix: string,
-): Promise<pg.QueryResult> {
-  const client = await this.pool.connect();
 
-  const searchTerms: string[] = [];
-  if (numeroplan.length > 0) searchTerms.push(`numeroplan = '${numeroplan}'`);
-  if (categorie.length > 0) searchTerms.push(`categorie = '${categorie}'`);
-  if (frequence.length > 0) searchTerms.push(`frequence = '${frequence}'`);
-  if (nbpersonnes.length > 0) searchTerms.push(`nbpersonnes = '${nbpersonnes}'`);
-  if (nbcalories.length > 0) searchTerms.push(`nbcalories = '${nbcalories}'`);
-  if (prix.length > 0) searchTerms.push(`prix = '${prix}'`);
-
-
-  let queryText = "SELECT * FROM TP4.planrepas";
-  if (searchTerms.length > 0)
-    queryText += " WHERE " + searchTerms.join(" AND ");
-  queryText += ";";
-
-  const res = await client.query(queryText);
-  client.release();
-  return res;
-}
-
-/*
-// get the hotel names and numbers so so that the user can only select an existing hotel
-public async getHotelNamesByNos(): Promise<pg.QueryResult> {
-  const client = await this.pool.connect();
-  const res = await client.query("SELECT hotelNb, name FROM HOTELDB.Hotel;");
-  client.release();
-  return res;
-}*/
 }

@@ -1,18 +1,22 @@
 <div>
   <nav class="navbar navbar-dark bg-dark main-nav">
-    <a class="navbar-brand title" href="/" matTooltip="/">INF3710 - TP4</a>
+    <a class="navbar-brand title" href="/" matTooltip="/" color="white">INF3710 - TP4</a>
     <div class="navbar-expand mr-auto">
       <div class="navbar-nav">
         <a class="nav-item nav-link active" routerLink="/planrepas">Plan de Repas</a>
+        <a class="nav-item nav-link active" routerLink="/planrepas">Insert Planrepas</a>
       </div>
     </div>
   </nav>
 
-  <div class="home" *ngIf="route == ''">
-    <p>
+
+
+  <div class="home"  *ngIf="route == ''">
+    <p style="font-family: Didot;">
       WELCOME TO PLAN DE REPAS
     </p>
     <button mat-raised-button color="primary" class="btn" routerLink="/planrepas">Click here to see the plan disponibles<mat-icon>arrow_right</mat-icon></button>
   </div>
   <router-outlet></router-outlet>
 </div>
+

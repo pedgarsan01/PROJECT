@@ -14,7 +14,7 @@ import { PlanrepasComponent } from "./planrepas/planrepas.component";
 @NgModule({
     declarations: [
         AppComponent,
-        PlanrepasComponent
+        PlanrepasComponent,
     ],
     imports: [
         CommonModule,
