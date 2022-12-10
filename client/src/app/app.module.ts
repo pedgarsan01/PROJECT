@@ -9,12 +9,14 @@ import { CommunicationService } from "./services/communication.service";
 import { AppMaterialModule } from './modules/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PlanrepasComponent } from "./planrepas/planrepas.component";
+import { PlanrepasForm } from "./planrepas/planrepasForm";
 
 
 @NgModule({
     declarations: [
         AppComponent,
         PlanrepasComponent,
+        PlanrepasForm
     ],
     imports: [
         CommonModule,

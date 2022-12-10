@@ -6,9 +6,9 @@ import { Planrepas } from "../../../server/app/tables/Planrepas";
 @injectable()
 export class DatabaseService {
   public connectionConfig: pg.ConnectionConfig = {
-    user: "admin2",
+    user: "admin",
     database: "TP4",
-    password: "admin2",
+    password: "admin",
     port: 5432,          // Attention ! Peut aussi être 5433 pour certains utilisateurs
     host: "127.0.0.1",
     keepAlive: true
