@@ -10,7 +10,7 @@ import { PlanrepasForm } from "./planrepas/planrepasForm";
 const routes: Routes = [
   { path: "app", component: AppComponent },
   { path: "planrepas", component: PlanrepasComponent },
-  { path: "planrepasForm", component: PlanrepasForm }
+  { path: "planrepasForm", component: PlanrepasForm },
 
 ];
 

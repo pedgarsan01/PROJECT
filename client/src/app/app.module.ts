@@ -16,7 +16,7 @@ import { PlanrepasForm } from "./planrepas/planrepasForm";
     declarations: [
         AppComponent,
         PlanrepasComponent,
-        PlanrepasForm
+        PlanrepasForm,
     ],
     imports: [
         CommonModule,
