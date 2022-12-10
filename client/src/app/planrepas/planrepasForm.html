@@ -2,12 +2,12 @@
 
   <h2 style="font-size: 30px;">Ajoutez un plan repas </h2>
 
-  <form id = form action="/planrepas.component.html">
-    <label for="fname">Numéro plan :</label><br>
-    <input type="text" id="fname" value="4567"><br><br>
+  <form id = form action="/planrepasForm.html" method="POST">
+    <label for="fname" >Numéro plan :<br></label>
+    <input class="contentCell" contenteditable="true" type="text" id="fname" placeholder="New numeroplan" #newNumeroplan ><br><br>
 
     <label for="fname">Catégorie :</label><br><br>
-    <select id = form name="Catégorie" id="categorie">
+    <select id = form name="Catégorie" id="categorie" placeholder="New categorie" #newCategorie>
       <option value="keto">Keto</option>
       <option value="sans-gluten">Sans-gluten</option>
       <option value="plats principaux">Plats principaux</option>
@@ -17,28 +17,27 @@
     </select><br><br>
 
     <label for="fname">Fréquence :</label><br><br>
-    <select id = form name="Fréquence" id="frequence">
+    <select id = form name="Fréquence" id="frequence" placeholder="New frequence" #newFrequence>
       <option value="quotidienne">Quotidienne</option>
       <option value="hebdomadaire">Hebdomadaire</option>
       <option value="mensuelle">Mensuelle</option>
     </select><br><br>
 
     <label for="fname">Nombre de personnes :</label><br><br>
-    <input type="text" id="fname" value="45"><br><br>
+    <input type="text" id="fname" value="45"  placeholder="New nbpersonnes" #newNbpersonnes><br><br>
+    
     <label for="fname">Calories :</label><br><br>
-    <input type="text" id="fname" value="781"><br><br>
-    <label for="fname">Prix :</label><br><br>
-    <input type="text" id="fname" value="23"><br><br>
+    <input type="text" id="fname" value="781" placeholder="New nbcalories" #newNbcalories><br><br>
 
-    <label for="fname">Fournisseur :</label><br><br>
-    <select id = form name="Numéro fournisseur" id="fournisseur">
-      <option value="127">Tremblay</option>
-      <option value="255">Vachon</option>
-      <option value="563">Debbie</option>
-    </select>
-    <br><br>
 
-    <button id= myButton2 type="button" routerLink="/planrepas"class="btn" >+ Add Plan </button>
+    <label for="fname">Prix :</label><br>
+    <input type="text" id="fname" value="100" placeholder="New prix" #newPrix><br><br>
+
+    <label for="fname">Numero Fournisseur :</label><br><br>
+    <input type="text" id="fname" value="2"placeholder="New Fournisseur" #newNumerofournisseur><br><br>
+
+    <!-- <button id= myButton2 type="button" routerLink="/planrepas" class="btn" (click)="insertPlanrepas()" >+ Add Plan </button> -->
+    <button id= myButton2 type="button" routerLink="/planrepas" class="btn"  >+ Add Plan </button>
   </form> 
 
 </div>
